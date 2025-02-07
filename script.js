@@ -22,7 +22,7 @@ const screen = document.querySelector('.calculator-screen');
 
         function appendOperation(operation) {
             screen.value += " " + operation + " ";
-            historyDisplay.textContent = screen.value; // Обновляем строку истории операции
+            historyDisplay.textContent = screen.value;
             updateLocalStorage();
         }
 
@@ -34,8 +34,15 @@ const screen = document.querySelector('.calculator-screen');
         function calculateResult() {
             try {
                 const expression = screen.value;
-                const result = eval(expression.replace('×', '*').replace('÷', '/'));
-                historyDisplay.textContent = expression; // Показываем только операцию без результата
+                if (expression.includes('/ 0')) {
+                    throw new Error("Деление на 0");
+                }
+                let result = eval(expression.replace('×', '*').replace('÷', '/'));
+                if (!isFinite(result)) {
+                    throw new Error("Ошибка");
+                }
+                result = parseFloat(result.toPrecision(12)).toString(); // формируем число
+                historyDisplay.textContent = expression;
                 screen.value = result;
                 updateLocalStorage();
             } catch {
