@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="calculator">
@@ -34,46 +35,11 @@
             <button class="button operation" onclick="calculateResult()">=</button>
         </div>
         <div class="button-row">
-            <button class="button button-zero" onclick="appendNumber(0)">0</button>
+            <button class="button-zero" onclick="appendNumber(0)">0</button>
             <button class="button" onclick="appendDot()">.</button>
         </div>
     </div>
-    <script>
-      const screen = document.querySelector('.calculator-screen');
-      const historyDisplay = document.querySelector('#history');
 
-      function appendNumber(number) {
-          screen.value += number;
-      }
-
-      function appendOperation(operation) {
-          screen.value += " " + operation + " ";
-          historyDisplay.textContent = screen.value; // Обновляем строку истории операции
-      }
-
-      function appendDot() {
-          screen.value += ".";
-      }
-
-      function calculateResult() {
-          try {
-              const expression = screen.value;
-              const result = eval(expression.replace('×', '*').replace('÷', '/'));
-              historyDisplay.textContent = expression; // Показываем только операцию без результата
-              screen.value = result;
-          } catch {
-              screen.value = "Ошибка";
-          }
-      }
-
-      function clearAll() {
-          screen.value = "";
-          historyDisplay.textContent = "";
-      }
-
-      function deleteLast() {
-          screen.value = screen.value.slice(0, -1);
-      }
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
